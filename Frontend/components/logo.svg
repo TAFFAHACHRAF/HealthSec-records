@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#FFFFFF"/>
+  
+  <!-- Healthcare Symbol -->
+  <path d="M200 50l-80 150h160zM150 250h100v60h-100z" fill="#4CAF50"/>
+  
+  <!-- Morocco Symbol -->
+  <path d="M120 150l80 100 80-100zM180 220v60M220 220v60" stroke="#D32F2F" stroke-width="20" stroke-linecap="round"/>
+  
+  <!-- Blockchain Symbol -->
+  <rect x="140" y="50" width="120" height="40" fill="#2196F3"/>
+  <rect x="140" y="110" width="120" height="40" fill="#2196F3"/>
+  <rect x="140" y="170" width="120" height="40" fill="#2196F3"/>
+</svg>
