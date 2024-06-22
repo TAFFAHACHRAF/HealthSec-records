@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: healthcare-service
+
+  datasource:
+    url: jdbc:postgresql://dpg-cogn1ag21fec73bj1nu0-a.oregon-postgres.render.com:5432/banking_l0fa
+    username: banking_l0fa_user
+    password: 4DF1fQE0dHdxUtqfk1uGaG5F3IGWboVa
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+      format_sql: true
+    show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: 8082
