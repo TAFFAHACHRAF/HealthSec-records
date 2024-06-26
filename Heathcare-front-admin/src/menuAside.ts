@@ -25,12 +25,12 @@ const menuAside: MenuAsideItem[] = [
   {
     href: '/doctors',
     label: 'Doctors',
-    icon: mdiMedication,
+    icon: mdiDoctor,
   },  
   {
     href: '/patients',
     label: 'Patients',
-    icon: mdiDoctor,
+    icon:  mdiMedication,
   },
   {
     href: '/tables',

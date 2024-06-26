@@ -25,6 +25,19 @@ export type Patient = {
   cin: string;
 };
 
+export type Doctor = {
+  personID: string;
+  firstname: string;
+  lastname: string;
+  phone: string;
+  email: string;
+  address: string;
+  gender: 'MALE' | 'FEMALE' | 'OTHER';
+  dateOfBirth: string; // Assuming date format is YYYY-MM-DD
+  cin: string;
+};
+
+
 
 export type MenuNavBarItem = {
   label?: string

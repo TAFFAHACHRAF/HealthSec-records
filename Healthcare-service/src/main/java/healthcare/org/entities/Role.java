@@ -23,7 +23,9 @@ public enum Role {
                   READ_THEIR_DOCTORS,
                   ADD_DOCTOR,
                   UPDATE_ITS_DOCTOR,
-                  DELETE_ITS_DOCTOR
+                  DELETE_ITS_DOCTOR,
+                  READ_PATIENT_RECORDS,
+                  ADD_PATIENT_RECORD
           )
   ),
   DOCTOR(
@@ -31,7 +33,9 @@ public enum Role {
                   READ_PATIENTS,
                   ADD_PATIENTS,
                   UPDATE_ITS_PATIENT,
-                  DELETE_ITS_PATIENT
+                  DELETE_ITS_PATIENT,
+                  READ_PATIENT_RECORDS,
+                  ADD_PATIENT_RECORD
           )
   ),
   ADMINISTRATOR(

@@ -36,4 +36,17 @@ public class MedicalRecord {
 
     @OneToMany(mappedBy = "medicalRecord", cascade = CascadeType.ALL)
     private List<Prescription> prescriptions;
+
+    @Override
+    public String toString() {
+        return "MedicalRecord{" +
+                "id=" + recordID +
+                ", recordID='" + recordID + '\'' +
+                ", date=" + date +
+                ", notes='" + notes + '\'' +
+                ", diagnosis='" + diagnosis + '\'' +
+                ", treatment='" + treatment + '\'' +
+                ", patient=" + (patient != null ? patient.getPersonID() : null) + // Avoid infinite loop
+                '}';
+    }
 }
