@@ -1,7 +1,7 @@
 package healthcare.org.mappers;
 
 import healthcare.org.entities.Patient;
-import healthcare.org.dtos.patient.PatientDTO;
+import healthcare.org.dtos.patient.PatientResponseDTO;
 import healthcare.org.dtos.patient.SavePatientReqDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -29,14 +29,16 @@ public class PatientMapperImpl implements PatientMapper {
     }
 
     @Override
-    public PatientDTO toPatientDTO(Patient patient) {
-        PatientDTO patientDTO = new PatientDTO();
+    public PatientResponseDTO toPatientDTO(Patient patient) {
+        PatientResponseDTO patientDTO = new PatientResponseDTO();
         BeanUtils.copyProperties(patient, patientDTO);
+        patientDTO.setDoctorID(patient.getDoctor().getUserId()); // Corrected mapping
         return patientDTO;
     }
 
+
     @Override
-    public List<PatientDTO> toPatientDTOList(List<Patient> patients) {
+    public List<PatientResponseDTO> toPatientDTOList(List<Patient> patients) {
         return patients.stream()
                 .map(this::toPatientDTO)
                 .collect(Collectors.toList());

@@ -1,7 +1,7 @@
 package healthcare.org.controllers;
 
 import healthcare.org.dtos.patient.SavePatientReqDTO;
-import healthcare.org.dtos.patient.PatientDTO;
+import healthcare.org.dtos.patient.PatientResponseDTO;
 import healthcare.org.exceptions.*;
 import healthcare.org.services.PatientService;
 import lombok.AllArgsConstructor;
@@ -31,7 +31,7 @@ public class PatientController {
             @RequestParam(name = "sort", defaultValue = "cin") String[] sort) {
         try {
             Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
-            Page<PatientDTO> patientDTOS = patientService.getAllPatients(pageable);
+            Page<PatientResponseDTO> patientDTOS = patientService.getAllPatients(pageable);
             return ResponseEntity.ok(patientDTOS);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
@@ -42,7 +42,7 @@ public class PatientController {
     @PreAuthorize("hasAuthority('read_patients')")
     public ResponseEntity<?> getPatientById(@PathVariable String id) {
         try {
-            PatientDTO patientDTO = patientService.getPatientById(id);
+            PatientResponseDTO patientDTO = patientService.getPatientById(id);
             return ResponseEntity.ok(patientDTO);
         } catch (PatientNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -55,14 +55,11 @@ public class PatientController {
     @PreAuthorize("hasAuthority('add_patients')")
     public ResponseEntity<?> addPatient(@Validated @RequestBody SavePatientReqDTO savePatientReqDTO) {
         try {
-            PatientDTO patientDTO = patientService.addPatient(savePatientReqDTO);
-            System.out.println("00000000000000000");
+            PatientResponseDTO patientDTO = patientService.addPatient(savePatientReqDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(patientDTO);
         } catch (InvalidPatientDataException e) {
-            System.out.println("1111111111111111");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
-            System.out.println("2222222222222222");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
@@ -71,7 +68,7 @@ public class PatientController {
     @PreAuthorize("hasAuthority('doctor_update_its_patient')")
     public ResponseEntity<?> updatePatient(@PathVariable String id, @Validated @RequestBody SavePatientReqDTO savePatientReqDTO) {
         try {
-            PatientDTO patientDTO = patientService.updatePatient(id, savePatientReqDTO);
+            PatientResponseDTO patientDTO = patientService.updatePatient(id, savePatientReqDTO);
             return ResponseEntity.ok(patientDTO);
         } catch (PatientNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

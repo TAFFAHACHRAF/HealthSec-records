@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class PatientDTO {
+public class PatientResponseDTO {
     private String personID;
     private String firstname;
     private String lastname;
@@ -15,4 +15,5 @@ public class PatientDTO {
     private GENDER gender;
     private Date dateOfBirth;
     private String cin;
+    private Integer doctorID;
 }

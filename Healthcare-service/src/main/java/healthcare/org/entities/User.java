@@ -19,7 +19,6 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer userId;
@@ -47,7 +46,7 @@ public class User implements UserDetails {
   private INSTYPE institutionInstype;
 
   @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
-  private List<MedicalRecord> patientMedicalRecords;
+  private List<Patient> patients; // One doctor can have multiple patients
 
   @ManyToOne
   @JoinColumn(name = "institution_id")

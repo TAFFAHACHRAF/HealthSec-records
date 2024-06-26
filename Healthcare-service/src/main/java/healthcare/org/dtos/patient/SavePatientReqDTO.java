@@ -37,4 +37,7 @@ public class SavePatientReqDTO {
     @Column(unique = true)
     @NotBlank(message = "Cin is required")
     private String cin;
+
+    @NotNull(message = "Doctor id is required")
+    private Integer doctorID;
 }

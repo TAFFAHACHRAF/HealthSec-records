@@ -1,12 +1,15 @@
 package healthcare.org.services;
 
-import healthcare.org.dtos.patient.PatientDTO;
+import healthcare.org.dtos.patient.PatientResponseDTO;
 import healthcare.org.dtos.patient.SavePatientReqDTO;
 import healthcare.org.entities.Patient;
+import healthcare.org.entities.User;
+import healthcare.org.exceptions.DoctorNotFoundException;
 import healthcare.org.exceptions.InvalidPatientDataException;
 import healthcare.org.exceptions.PatientNotFoundException;
 import healthcare.org.mappers.PatientMapper;
 import healthcare.org.repositories.PatientRepository;
+import healthcare.org.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,29 +29,42 @@ import java.util.stream.StreamSupport;
 public class PatientServiceImpl implements PatientService {
     private final PatientRepository patientRepository;
     private final PatientMapper patientMapper;
+    private final UserRepository userRepository;
 
     @Override
     @Transactional
-    public PatientDTO addPatient(SavePatientReqDTO savePatientReqDTO) throws InvalidPatientDataException {
+    public PatientResponseDTO addPatient(SavePatientReqDTO savePatientReqDTO) throws InvalidPatientDataException {
         try {
+            // Check if patient with same CIN or email already exists
             Patient existingPatient = patientRepository.findByCinOrEmail(savePatientReqDTO.getCin(), savePatientReqDTO.getEmail());
             if (existingPatient != null) {
                 throw new InvalidPatientDataException("CIN or email already exists");
             }
 
+            // Find the doctor by ID from the request
+            User doctor = userRepository.findById(savePatientReqDTO.getDoctorID())
+                    .orElseThrow(() -> new DoctorNotFoundException("Doctor with ID " + savePatientReqDTO.getDoctorID() + " not found"));
+
+            // Map SavePatientReqDTO to Patient entity
             Patient patient = patientMapper.toPatient(savePatientReqDTO);
-            patient.setPersonID(UUID.randomUUID().toString());
+            patient.setPersonID(UUID.randomUUID().toString()); // Generate personID (if needed)
+            patient.setDoctor(doctor); // Set the doctor
+
+            // Save patient to repository
             patientRepository.save(patient);
-            log.info("Patient added: {}", patient);
+
+            // Map patient entity back to DTO for response
             return patientMapper.toPatientDTO(patient);
         } catch (DataIntegrityViolationException ex) {
             throw new InvalidPatientDataException("CIN or email already exists");
         }
     }
 
+
+
     @Override
     @Transactional
-    public PatientDTO updatePatient(String id, SavePatientReqDTO savePatientReqDTO) throws PatientNotFoundException, InvalidPatientDataException {
+    public PatientResponseDTO updatePatient(String id, SavePatientReqDTO savePatientReqDTO) throws PatientNotFoundException, InvalidPatientDataException {
         try {
             Patient existingPatient = patientRepository.findByCinOrEmail(savePatientReqDTO.getCin(), savePatientReqDTO.getEmail());
             if (existingPatient != null && !existingPatient.getPersonID().equals(id)) {
@@ -74,24 +90,24 @@ public class PatientServiceImpl implements PatientService {
 
         patientRepository.delete(patient);
         log.info("Patient deleted: {}", patient);
-        return "Patient deleted";
+        return "Patient deleted with id "+patient.getPersonID();
     }
 
     @Override
-    public List<PatientDTO> getAllPatients() {
+    public List<PatientResponseDTO> getAllPatients() {
         return StreamSupport.stream(patientRepository.findAll().spliterator(), false)
                 .map(patientMapper::toPatientDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Page<PatientDTO> getAllPatients(Pageable pageable) {
+    public Page<PatientResponseDTO> getAllPatients(Pageable pageable) {
         return patientRepository.findAll(pageable)
                 .map(patientMapper::toPatientDTO);
     }
 
     @Override
-    public PatientDTO getPatientById(String id) {
+    public PatientResponseDTO getPatientById(String id) {
         Patient patient = patientRepository.findById(id)
                 .orElseThrow(() -> new PatientNotFoundException("Patient with id " + id + " not found"));
         return patientMapper.toPatientDTO(patient);

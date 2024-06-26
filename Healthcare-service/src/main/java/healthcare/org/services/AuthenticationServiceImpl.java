@@ -59,7 +59,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
   }
 
 
-
   @Override
   public AuthenticationResponseDTO authenticate(AuthenticationRequestDTO request) {
     authenticationManager.authenticate(
@@ -78,6 +77,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             .accessToken(jwtToken)
             .refreshToken(refreshToken)
             .role(user.getRole().toString())
+            .personID(user.getUserId())
             .build();
   }
 
@@ -112,15 +112,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     User user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
 
     if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
-      throw new IllegalStateException("Wrong password");
+      throw new IllegalStateException("Wrong current password");
     }
     if (!request.getNewPassword().equals(request.getConfirmationPassword())) {
-      throw new IllegalStateException("Passwords do not match");
+      throw new IllegalStateException("New passwords do not match");
     }
 
     user.setPassword(passwordEncoder.encode(request.getNewPassword()));
     userRepository.save(user);
   }
+
 
   @Override
   public List<DoctorResponseDTO> getAllDoctors() {
