@@ -1,8 +1,8 @@
 package healthcare.org.mappers;
 
 import healthcare.org.entities.Patient;
-import healthcare.org.dtos.PatientDTO;
-import healthcare.org.dtos.SavePatientReqDTO;
+import healthcare.org.dtos.patient.PatientDTO;
+import healthcare.org.dtos.patient.SavePatientReqDTO;
 
 import java.util.List;
 

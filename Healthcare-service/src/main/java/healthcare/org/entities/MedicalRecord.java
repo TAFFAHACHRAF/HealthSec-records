@@ -1,7 +1,9 @@
 package healthcare.org.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "medical_record")
 public class MedicalRecord {
     @Id
     private String recordID;
@@ -20,16 +23,16 @@ public class MedicalRecord {
     private String treatment;
 
     @ManyToOne
-    @JoinColumn(name = "patientID")
+    @JoinColumn(name = "patient_id")
     private Patient patient;
 
-    /*@ManyToOne
-    @JoinColumn(name = "doctorID")
-    private Doctor doctor;
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    private User doctor;
 
     @ManyToOne
-    @JoinColumn(name = "institutionID")
-    private HealthcareInstitution institution;*/
+    @JoinColumn(name = "institution_id")
+    private User institution;
 
     @OneToMany(mappedBy = "medicalRecord", cascade = CascadeType.ALL)
     private List<Prescription> prescriptions;

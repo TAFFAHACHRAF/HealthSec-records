@@ -13,6 +13,19 @@ export type MenuAsideItem = {
   menu?: MenuAsideItem[]
 }
 
+export type Patient = {
+  personID: string;
+  firstname: string;
+  lastname: string;
+  phone: string;
+  email: string;
+  address: string;
+  gender: 'MALE' | 'FEMALE' | 'OTHER';
+  dateOfBirth: string; // Assuming date format is YYYY-MM-DD
+  cin: string;
+};
+
+
 export type MenuNavBarItem = {
   label?: string
   icon?: string

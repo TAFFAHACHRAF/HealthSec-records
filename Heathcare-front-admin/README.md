@@ -1,12 +1,12 @@
 # [Admin One &mdash; Free React Tailwind 3.x Admin Dashboard with dark mode](https://justboil.me/tailwind-admin-templates/free-react-dashboard/)
 
-[![version](https://img.shields.io/github/v/release/justboil/admin-one-react-tailwind)](https://justboil.me/tailwind-admin-templates/free-react-dashboard/)  [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://justboil.me/tailwind-admin-templates/free-react-dashboard/)
+[![version](https://img.shields.io/github/v/release/justboil/healthcare-system)](https://justboil.me/tailwind-admin-templates/free-react-dashboard/)  [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://justboil.me/tailwind-admin-templates/free-react-dashboard/)
 
 ### Tailwind 3.x React with Next.js and TypeScript
 
-[![Free React Tailwind TypeScript admin dashboard with dark mode](https://static.justboil.me/templates/one/repo-tailwind-react.png)](https://justboil.github.io/admin-one-react-tailwind/)
+[![Free React Tailwind TypeScript admin dashboard with dark mode](https://static.justboil.me/templates/one/repo-tailwind-react.png)](https://justboil.github.io/healthcare-system/)
 
-[![React TypeScript Tailwind white & dark styles](https://static.justboil.me/templates/one/repo-styles.png)](https://justboil.github.io/admin-one-react-tailwind/)
+[![React TypeScript Tailwind white & dark styles](https://static.justboil.me/templates/one/repo-styles.png)](https://justboil.github.io/healthcare-system/)
 
 ### Tailwind 3.x React with Next.js and TypeScript
 
@@ -54,27 +54,27 @@ Looking for **Tailwind Vue**? Check [Admin One - Vue Tailwind dashboard](https:/
 
 Mobile layout with hidden aside menu and collapsable cards & tables
 
-[![Free React Tailwind CSS 3 admin dashboard](https://static.justboil.me/templates/one/one-tailwind-vue-mobile.png)](https://justboil.github.io/admin-one-react-tailwind/)
+[![Free React Tailwind CSS 3 admin dashboard](https://static.justboil.me/templates/one/one-tailwind-vue-mobile.png)](https://justboil.github.io/healthcare-system/)
 
 ### Small laptops 1024px
 
 Small laptop layout with show/hide aside menu option
 
-[![Free React Tailwind CSS 3 admin dashboard](https://static.justboil.me/templates/one/one-tailwind-vue-1024.png)](https://justboil.github.io/admin-one-react-tailwind/)
+[![Free React Tailwind CSS 3 admin dashboard](https://static.justboil.me/templates/one/one-tailwind-vue-1024.png)](https://justboil.github.io/healthcare-system/)
 
-[![Free React Tailwind CSS 3 admin dashboard](https://static.justboil.me/templates/one/one-tailwind-vue-1024-menu-open.png)](https://justboil.github.io/admin-one-react-tailwind/)
+[![Free React Tailwind CSS 3 admin dashboard](https://static.justboil.me/templates/one/one-tailwind-vue-1024-menu-open.png)](https://justboil.github.io/healthcare-system/)
 
 ### Laptops & desktops
 
 Classic layout with aside menus on the left
 
-[![Free React Tailwind CSS 3 admin dashboard](https://static.justboil.me/templates/one/one-tailwind-vue-widescreen.png)](https://justboil.github.io/admin-one-react-tailwind/)
+[![Free React Tailwind CSS 3 admin dashboard](https://static.justboil.me/templates/one/one-tailwind-vue-widescreen.png)](https://justboil.github.io/healthcare-system/)
 
 ## Demo
 
 ### Free Dashboard Demo
 
-https://justboil.github.io/admin-one-react-tailwind/
+https://justboil.github.io/healthcare-system/
 
 ### Premium Dashboard Demo
 
@@ -92,9 +92,9 @@ Get code & install. Then `dev` or `build`
 
 #### Get the repo
 
-* [Create new repo](https://github.com/justboil/admin-one-react-tailwind/generate) with this template
+* [Create new repo](https://github.com/justboil/healthcare-system/generate) with this template
 * &hellip; or clone this repo on GitHub
-* &hellip; or [download .zip](https://github.com/justboil/admin-one-react-tailwind/archive/master.zip) from GitHub
+* &hellip; or [download .zip](https://github.com/justboil/healthcare-system/archive/master.zip) from GitHub
 
 #### Install
 

@@ -13,7 +13,8 @@ import lombok.NoArgsConstructor;
 public class Person {
     @Id
     private String personID;
-    private String name;
+    private String firstname;
+    private String lastname;
     private String phone;
     private String email;
     private String address;

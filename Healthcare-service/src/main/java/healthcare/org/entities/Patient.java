@@ -18,8 +18,8 @@ import java.util.List;
 @NoArgsConstructor
 @DiscriminatorValue("PATIENT")
 public class Patient extends PhysicalPerson {
-    /*@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    private List<EmergencyContact> emergencyContacts;*/
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<EmergencyContact> emergencyContacts;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<MedicalRecord> medicalRecords;

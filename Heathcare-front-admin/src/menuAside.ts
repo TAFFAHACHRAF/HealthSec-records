@@ -11,14 +11,26 @@ import {
   mdiResponsive,
   mdiPalette,
   mdiVuejs,
+  mdiDoctor,
+  mdiMedication,
 } from '@mdi/js'
 import { MenuAsideItem } from './interfaces'
 
 const menuAside: MenuAsideItem[] = [
   {
     href: '/dashboard',
-    icon: mdiMonitor,
     label: 'Dashboard',
+    icon: mdiTable,
+  },
+  {
+    href: '/doctors',
+    label: 'Doctors',
+    icon: mdiMedication,
+  },  
+  {
+    href: '/patients',
+    label: 'Patients',
+    icon: mdiDoctor,
   },
   {
     href: '/tables',
@@ -73,7 +85,7 @@ const menuAside: MenuAsideItem[] = [
     ],
   },
   {
-    href: 'https://github.com/justboil/admin-one-react-tailwind',
+    href: 'https://github.com/justboil/healthcare-system',
     label: 'GitHub',
     icon: mdiGithub,
     target: '_blank',

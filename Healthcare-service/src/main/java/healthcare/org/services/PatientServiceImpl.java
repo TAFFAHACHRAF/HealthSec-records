@@ -1,7 +1,7 @@
 package healthcare.org.services;
 
-import healthcare.org.dtos.PatientDTO;
-import healthcare.org.dtos.SavePatientReqDTO;
+import healthcare.org.dtos.patient.PatientDTO;
+import healthcare.org.dtos.patient.SavePatientReqDTO;
 import healthcare.org.entities.Patient;
 import healthcare.org.exceptions.InvalidPatientDataException;
 import healthcare.org.exceptions.PatientNotFoundException;

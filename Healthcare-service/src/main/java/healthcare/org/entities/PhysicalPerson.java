@@ -1,10 +1,7 @@
 package healthcare.org.entities;
 
 import healthcare.org.ennumerations.GENDER;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,7 +17,11 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorValue("PHYSICAL_PERSON")
 public class PhysicalPerson extends Person {
+    @Enumerated(EnumType.STRING)
     private GENDER gender;
+
+    @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
+
     private String cin;
 }
