@@ -1,6 +1,7 @@
 package healthcare.org.dtos.healthcare_institution;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import healthcare.org.entities.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,7 +19,7 @@ public class AuthenticationResponseDTO {
   private String refreshToken;
 
   @JsonProperty("role")
-  private String role;
+  private Role role;
 
   @JsonProperty("person_id")
   private Integer personID;

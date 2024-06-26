@@ -1,5 +1,6 @@
 package healthcare.org.mappers;
 
+import healthcare.org.dtos.patient.UpdatePatientReqDTO;
 import healthcare.org.entities.Patient;
 import healthcare.org.dtos.patient.PatientResponseDTO;
 import healthcare.org.dtos.patient.SavePatientReqDTO;
@@ -45,7 +46,7 @@ public class PatientMapperImpl implements PatientMapper {
     }
 
     @Override
-    public void updatePatientFromDTO(SavePatientReqDTO savePatientReqDTO, Patient patient) {
-        BeanUtils.copyProperties(savePatientReqDTO, patient);
+    public void updatePatientFromDTO(UpdatePatientReqDTO updatePatientReqDTO, Patient patient) {
+        BeanUtils.copyProperties(updatePatientReqDTO, patient);
     }
 }

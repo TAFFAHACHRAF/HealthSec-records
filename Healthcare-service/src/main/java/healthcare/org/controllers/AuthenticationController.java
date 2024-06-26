@@ -31,7 +31,7 @@ public class AuthenticationController {
         Healthcare institutions [Registration, Authentication, change password, refresh token]
    */
 
-  @PatchMapping("/changepassword")
+  /*@PatchMapping("/changepassword")
   public ResponseEntity<?> changePassword(
           @Validated @RequestBody ChangePasswordRequestDTO changePasswordRequestDTO,
           Principal connectedUser
@@ -44,7 +44,7 @@ public class AuthenticationController {
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
     }
-  }
+  }*/
 
   @PostMapping("/register")
   public ResponseEntity<?> register(
@@ -53,8 +53,11 @@ public class AuthenticationController {
     try {
       AuthenticationResponseDTO responseDTO = authenticationService.registerHealthcareInstitution(registerReqDTO);
       return ResponseEntity.ok(responseDTO);
+    } catch (AuthenticationException e) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: " + e.getMessage());
+    } catch (AccessDeniedException e) {
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Forbidden: " + e.getMessage());
     } catch (Exception e) {
-      // Handle 500 Internal Server Error for any unexpected exceptions
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
     }
   }
@@ -75,19 +78,17 @@ public class AuthenticationController {
     }
   }
 
-  @PostMapping("/refresh-token")
-  public void refreshToken(
-          HttpServletRequest request,
-          HttpServletResponse response
-  ) throws IOException {
+  @PostMapping("/refreshtoken")
+  public ResponseEntity<?> refreshToken( HttpServletRequest request, HttpServletResponse response ){
     try {
       authenticationService.refreshToken(request, response);
+      return ResponseEntity.ok().build();
+    } catch (AuthenticationException e) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: " + e.getMessage());
     } catch (AccessDeniedException e) {
-      // Handle 403 Forbidden (Access Denied)
-      response.sendError(HttpServletResponse.SC_FORBIDDEN, "Forbidden: " + e.getMessage());
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Forbidden: " + e.getMessage());
     } catch (Exception e) {
-      // Handle other unexpected errors with a 500 Internal Server Error
-      response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal Server Error: " + e.getMessage());
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
     }
   }
 

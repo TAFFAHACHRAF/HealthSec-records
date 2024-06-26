@@ -12,7 +12,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,34 +39,62 @@ public class DoctorController {
       Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
       Page<DoctorResponseDTO> doctorDTOS = authenticationService.getAllDoctors(pageable);
       return ResponseEntity.ok(doctorDTOS);
+    } catch (AuthenticationException e) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: " + e.getMessage());
+    } catch (AccessDeniedException e) {
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Forbidden: " + e.getMessage());
     } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
     }
   }
 
-  @PostMapping("/save")
+  @PostMapping("/add")
   @PreAuthorize("hasAuthority('hi_add_doctor')")
-  public ResponseEntity<DoctorResponseDTO> saveDoctor(@Validated @RequestBody DoctorSaveRequestDTO request) {
-    DoctorResponseDTO response = authenticationService.saveDoctor(request);
-    return ResponseEntity.status(HttpStatus.CREATED).body(response);
+  public ResponseEntity<?> saveDoctor(@Validated @RequestBody DoctorSaveRequestDTO request) {
+    try {
+      DoctorResponseDTO response = authenticationService.saveDoctor(request);
+      return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    } catch (AuthenticationException e) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: " + e.getMessage());
+    } catch (AccessDeniedException e) {
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Forbidden: " + e.getMessage());
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
+    }
   }
 
   @PutMapping("/update/{id}")
   @PreAuthorize("hasAuthority('hi_update_its_doctor')")
-  public ResponseEntity<Void> updateDoctor(@PathVariable("id") Integer id, @Validated @RequestBody DoctorUpdateRequestDTO request) {
-    User user = authenticationService.findById(id);
-    if (user == null) {
-      return ResponseEntity.notFound().build();
+  public ResponseEntity<?> updateDoctor(@PathVariable("id") Integer id, @Validated @RequestBody DoctorUpdateRequestDTO request) {
+    try {
+      User user = authenticationService.findById(id);
+      if (user == null) {
+        return ResponseEntity.notFound().build();
+      }
+      doctorMapper.updateFromDto(request, user);
+      authenticationService.updateDoctor(user);
+      return ResponseEntity.ok(doctorMapper.toDoctorResponseDTO(user));
+    } catch (AuthenticationException e) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: " + e.getMessage());
+    } catch (AccessDeniedException e) {
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Forbidden: " + e.getMessage());
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
     }
-    doctorMapper.updateFromDto(request, user);
-    authenticationService.updateDoctor(user);
-    return ResponseEntity.noContent().build();
   }
 
   @DeleteMapping("/delete/{id}")
   @PreAuthorize("hasAuthority('hi_delete_its_doctor')")
-  public ResponseEntity<Void> deleteDoctor(@PathVariable("id") Integer id) {
-    authenticationService.deleteDoctor(id);
-    return ResponseEntity.noContent().build();
+  public ResponseEntity<?> deleteDoctor(@PathVariable("id") Integer id) {
+    try {
+      authenticationService.deleteDoctor(id);
+      return ResponseEntity.ok("Deleted Doctor with id: " + id);
+    } catch (AuthenticationException e) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: " + e.getMessage());
+    } catch (AccessDeniedException e) {
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Forbidden: " + e.getMessage());
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
+    }
   }
 }

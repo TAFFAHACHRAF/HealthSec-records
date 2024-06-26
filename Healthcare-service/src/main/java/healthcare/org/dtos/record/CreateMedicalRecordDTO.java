@@ -32,6 +32,7 @@ public class CreateMedicalRecordDTO {
     private String treatment;
 
     @Valid
+    @NotBlank(message = "Treatment must not be blank")
     private String patientId;
 
     @NotNull(message = "Doctor ID must not be null")

@@ -17,6 +17,7 @@ import healthcare.org.token.TokenRepository;
 import healthcare.org.token.TokenType;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -58,7 +59,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     return doctorMapper.toDoctorResponseDTO(savedUser);
   }
 
-
   @Override
   public AuthenticationResponseDTO authenticate(AuthenticationRequestDTO request) {
     authenticationManager.authenticate(
@@ -76,7 +76,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     return AuthenticationResponseDTO.builder()
             .accessToken(jwtToken)
             .refreshToken(refreshToken)
-            .role(user.getRole().toString())
+            .role(user.getRole())
             .personID(user.getUserId())
             .build();
   }
@@ -122,7 +122,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     userRepository.save(user);
   }
 
-
   @Override
   public List<DoctorResponseDTO> getAllDoctors() {
     return userRepository.findByRole(Role.DOCTOR).stream()
@@ -148,8 +147,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
   }
 
   @Override
+  @Transactional
   public void deleteDoctor(Integer id) {
-    userRepository.deleteById(id);
+    // Check if user exists with id and has role DOCTOR
+    User user = userRepository.findById(id)
+            .orElseThrow(() -> new UsernameNotFoundException("Doctor not found with id: " + id));
+    if (user.getRole() != Role.DOCTOR) {
+      throw new IllegalStateException("User with id " + id + " is not a doctor");
+    }
+    userRepository.deleteByUserIdAndRole(id, Role.DOCTOR);
   }
 
   private User createUserFromRequest(RegisterReqDTO request, Role role) {
@@ -180,6 +186,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     return AuthenticationResponseDTO.builder()
             .accessToken(jwtToken)
             .refreshToken(refreshToken)
+            .role(user.getRole())
+            .personID(user.getUserId())
             .build();
   }
 

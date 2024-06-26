@@ -54,7 +54,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
             medicalRecord.setPatient(patient);
 
             User doctor = userRepository.findById(medicalRecordDTO.getDoctorId())
-                    .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + medicalRecordDTO.getDoctorId()));
+                    .orElseThrow(() -> new IllegalArgumentException("Doctor not found with ID: " + medicalRecordDTO.getDoctorId()));
             medicalRecord.setDoctor(doctor);
 
             MedicalRecord savedMedicalRecord = medicalRecordRepository.save(medicalRecord);

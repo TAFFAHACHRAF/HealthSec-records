@@ -2,6 +2,7 @@ package healthcare.org.services;
 
 import healthcare.org.dtos.patient.PatientResponseDTO;
 import healthcare.org.dtos.patient.SavePatientReqDTO;
+import healthcare.org.dtos.patient.UpdatePatientReqDTO;
 import healthcare.org.entities.Patient;
 import healthcare.org.entities.User;
 import healthcare.org.exceptions.DoctorNotFoundException;
@@ -60,23 +61,15 @@ public class PatientServiceImpl implements PatientService {
         }
     }
 
-
-
     @Override
     @Transactional
-    public PatientResponseDTO updatePatient(String id, SavePatientReqDTO savePatientReqDTO) throws PatientNotFoundException, InvalidPatientDataException {
+    public PatientResponseDTO updatePatient(String id, UpdatePatientReqDTO updatePatientReqDTO) throws PatientNotFoundException, InvalidPatientDataException {
         try {
-            Patient existingPatient = patientRepository.findByCinOrEmail(savePatientReqDTO.getCin(), savePatientReqDTO.getEmail());
-            if (existingPatient != null && !existingPatient.getPersonID().equals(id)) {
-                throw new InvalidPatientDataException("CIN or email already exists");
-            }
-
             Patient patient = patientRepository.findById(id)
                     .orElseThrow(() -> new PatientNotFoundException("Patient with id " + id + " not found"));
 
-            patientMapper.updatePatientFromDTO(savePatientReqDTO, patient);
+            patientMapper.updatePatientFromDTO(updatePatientReqDTO, patient);
             patientRepository.save(patient);
-            log.info("Patient updated: {}", patient);
             return patientMapper.toPatientDTO(patient);
         } catch (DataIntegrityViolationException ex) {
             throw new InvalidPatientDataException("CIN or email already exists");
@@ -89,7 +82,6 @@ public class PatientServiceImpl implements PatientService {
                 .orElseThrow(() -> new PatientNotFoundException("Patient with id " + id + " not found"));
 
         patientRepository.delete(patient);
-        log.info("Patient deleted: {}", patient);
         return "Patient deleted with id "+patient.getPersonID();
     }
 
