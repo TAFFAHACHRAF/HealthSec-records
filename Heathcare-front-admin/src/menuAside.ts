@@ -13,6 +13,8 @@ import {
   mdiVuejs,
   mdiDoctor,
   mdiMedication,
+  mdiRecord,
+  mdiFolderAccountOutline,
 } from '@mdi/js'
 import { MenuAsideItem } from './interfaces'
 
@@ -33,6 +35,16 @@ const menuAside: MenuAsideItem[] = [
     icon:  mdiMedication,
   },
   {
+    href: '/records',
+    label: 'Records',
+    icon: mdiFolderAccountOutline,
+  },
+  {
+    href: '/p1',
+    label: 'Prediction 1',
+    icon: mdiFolderAccountOutline,
+  },
+  /*{
     href: '/tables',
     label: 'Tables',
     icon: mdiTable,
@@ -56,14 +68,14 @@ const menuAside: MenuAsideItem[] = [
     href: '/',
     label: 'Styles',
     icon: mdiPalette,
-  },
+  },*/
   {
     href: '/profile',
     label: 'Profile',
     icon: mdiAccountCircle,
   },
   {
-    href: '/login',
+    href: '/',
     label: 'Login',
     icon: mdiLock,
   },
@@ -72,7 +84,7 @@ const menuAside: MenuAsideItem[] = [
     label: 'Error',
     icon: mdiAlertCircle,
   },
-  {
+  /*{
     label: 'Dropdown',
     icon: mdiViewList,
     menu: [
@@ -95,7 +107,7 @@ const menuAside: MenuAsideItem[] = [
     label: 'Vue version',
     icon: mdiVuejs,
     target: '_blank',
-  },
+  },*/
 ]
 
 export default menuAside

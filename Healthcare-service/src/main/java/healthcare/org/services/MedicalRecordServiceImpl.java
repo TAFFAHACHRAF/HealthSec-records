@@ -11,6 +11,8 @@ import healthcare.org.repositories.PatientRepository;
 import healthcare.org.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +28,6 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     private final MedicalRecordMapper medicalRecordMapper;
     private final PatientRepository patientRepository;
     private final UserRepository userRepository;
-
 
     @Override
     public List<ResponseMedicalRecordDTO> getAllMedicalRecords() {
@@ -65,9 +66,15 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
         }
     }
 
-
     @Override
     public void deleteMedicalRecord(String id) {
         medicalRecordRepository.deleteById(id);
+    }
+
+    // Implementing pagination
+    @Override
+    public Page<ResponseMedicalRecordDTO> getAllMedicalRecords(Pageable pageable) {
+        return medicalRecordRepository.findAll(pageable)
+                .map(medicalRecordMapper::toMedicalRecordDTO);
     }
 }

@@ -25,6 +25,16 @@ export type Patient = {
   cin: string;
 };
 
+export type Record = {
+  recordID: string;
+  date: string;
+  notes: string;
+  diagnosis: string;
+  treatment: string;
+  patientId: string;
+  doctorId: number;
+};
+
 export type Doctor = {
   personID: string;
   firstname: string;

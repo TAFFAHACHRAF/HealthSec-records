@@ -18,7 +18,7 @@
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'static.justboil.me',
+        hostname: '',
       },
     ],
   },

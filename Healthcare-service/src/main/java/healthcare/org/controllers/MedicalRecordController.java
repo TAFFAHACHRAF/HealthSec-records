@@ -5,6 +5,10 @@ import healthcare.org.dtos.record.ResponseMedicalRecordDTO;
 import healthcare.org.services.MedicalRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -27,10 +31,14 @@ public class MedicalRecordController {
 
     @GetMapping("/all")
     @PreAuthorize("hasAuthority('read_patient_records')")
-    public ResponseEntity<?> getAllMedicalRecords() {
-        try{
-            List<ResponseMedicalRecordDTO> medicalRecordDTOs = medicalRecordService.getAllMedicalRecords();
-            return new ResponseEntity<>(medicalRecordDTOs, HttpStatus.OK);
+    public ResponseEntity<?> getAllMedicalRecords(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            @RequestParam(name = "sort", defaultValue = "recordID") String[] sort) {
+        try {
+            Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
+            Page<ResponseMedicalRecordDTO> medicalRecordDTOs = medicalRecordService.getAllMedicalRecords(pageable);
+            return ResponseEntity.ok(medicalRecordDTOs);
         } catch (AuthenticationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: " + e.getMessage());
         } catch (AccessDeniedException e) {

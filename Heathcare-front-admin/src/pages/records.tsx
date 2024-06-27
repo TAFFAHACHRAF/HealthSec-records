@@ -3,32 +3,27 @@ import Head from 'next/head'
 import React, { ReactElement, useEffect, useState } from 'react'
 import Button from '../components/Button'
 import CardBox from '../components/CardBox'
-import CardBoxComponentEmpty from '../components/CardBox/Component/Empty'
 import LayoutAuthenticated from '../layouts/Authenticated'
 import NotificationBar from '../components/NotificationBar'
 import SectionMain from '../components/Section/Main'
 import SectionTitleLineWithButton from '../components/Section/TitleLineWithButton'
-import TableSampleClients from '../components/Table/SampleClients'
+import SampleMedicalRecords from '../components/Table/SampleMedicalRecords'
 import { getPageTitle } from '../config'
 import Cookies from 'universal-cookie'
-import SamplePatients from '../components/Table/SamplePatients'
 
-// Define Props type if needed
-// interface Props {}
-
-const PatientPage =() => {
-  const [patients, setPatients] = useState<any[]>([]);
+const MedicalRecordsPage = () => {
+  const [records, setRecords] = useState<any[]>([]);
   const cookies = new Cookies();
   const accessToken = cookies.get('accessToken');
 
   useEffect(() => {
-    const fetchPatients = async () => {
+    const fetchRecords = async () => {
       try {
         if (!accessToken) {
           throw new Error('Access token not found');
         }
 
-        const response = await fetch('http://localhost:8082/api/v1/patients/all', {
+        const response = await fetch('http://localhost:8082/api/v1/records/all', {
           headers: {
             Authorization: `Bearer ${accessToken}`,
             'Content-Type': 'application/json',
@@ -36,29 +31,29 @@ const PatientPage =() => {
         });
 
         if (!response.ok) {
-          throw new Error('Failed to fetch patients');
+          throw new Error('Failed to fetch records');
         }
 
         const data = await response.json();
-        setPatients(data.content); // Assuming 'content' contains the array of patients
+        setRecords(data.content);
       } catch (error) {
-        console.error('Fetch patients error:', error.message);
-        // Handle error fetching patients
+        console.error('Fetch records error:', error.message);
+        // Handle error fetching records
       }
     };
 
-    fetchPatients();
+    fetchRecords();
   }, [accessToken]);
 
   return (
     <>
       <Head>
-        <title>{getPageTitle('Patients')}</title>
+        <title>{getPageTitle('Medical Records')}</title>
       </Head>
       <SectionMain>
-        <SectionTitleLineWithButton icon={mdiTableBorder} title="Patients" main>
+        <SectionTitleLineWithButton icon={mdiTableBorder} title="Medical Records" main>
           <Button
-            href=""
+            href="https://github.com/justboil/admin-one-react-tailwind"
             target="_blank"
             icon={mdiGithub}
             label="Star on GitHub"
@@ -74,7 +69,7 @@ const PatientPage =() => {
 
         <CardBox className="mb-6" hasTable>
           {/* Assuming SamplePatients renders CardBoxTransaction */}
-          <SamplePatients patients={patients} />
+          <SampleMedicalRecords records={records} /> {/* Assuming SamplePatients can handle records */}
         </CardBox>
 
         <SectionTitleLineWithButton icon={mdiTableOff} title="Empty variation" />
@@ -83,9 +78,9 @@ const PatientPage =() => {
           <b>Empty card.</b> When there&apos;s nothing to show
         </NotificationBar>
 
-        {patients.length === 0 && (
+        {records.length === 0 && (
           <CardBox>
-            <p>No patients found.</p>
+            <p>No medical records found.</p>
           </CardBox>
         )}
       </SectionMain>
@@ -93,8 +88,8 @@ const PatientPage =() => {
   );
 };
 
-PatientPage.getLayout = function getLayout(page: ReactElement) {
+MedicalRecordsPage.getLayout = function getLayout(page: ReactElement) {
   return <LayoutAuthenticated>{page}</LayoutAuthenticated>
 }
 
-export default PatientPage;
+export default MedicalRecordsPage;
