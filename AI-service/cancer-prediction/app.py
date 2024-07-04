@@ -1,38 +1,11 @@
-import pandas as pd
-import numpy as np
-from fastapi import FastAPI, Request, HTTPException
+# app.py
+
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field, validator
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler, LabelEncoder
-import warnings
-
-# Suppress specific FutureWarnings
-warnings.filterwarnings("ignore", category=FutureWarning, module="sklearn.utils.validation")
-
-# Load the dataset
-cancer = pd.read_csv('Cancer.csv')
-
-# Define target variable and feature matrix
-y = cancer['diagnosis']
-X = cancer.drop(['id', 'diagnosis', 'Unnamed: 32'], axis=1)
-
-# Encode categorical variables
-label_encoder = LabelEncoder()
-y = label_encoder.fit_transform(y)  # Encode the target variable
-
-# Train-test split
-X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.7, random_state=2529)
-
-# Standardize the features
-scaler = StandardScaler()
-X_train = scaler.fit_transform(X_train)
-X_test = scaler.transform(X_test)
-
-# Train the model
-model = LogisticRegression(max_iter=5000)
-model.fit(X_train, y_train)
+import numpy as np
+from data.data import load_dataset, preprocess_data
+from model.model import train_model
 
 # Define the FastAPI app
 app = FastAPI()
@@ -94,6 +67,13 @@ class CancerPredictionRequest(BaseModel):
 @app.post("/predict")
 def predict_cancer(request: CancerPredictionRequest):
     try:
+        # Load and preprocess the dataset
+        cancer = load_dataset('./dataset/Cancer.csv')
+        X_train, X_test, y_train, y_test, label_encoder, scaler = preprocess_data(cancer)
+
+        # Train the model
+        model = train_model(X_train, y_train)
+
         # Extract the input features from the request body
         input_data = np.array([[
             request.radius_mean, request.texture_mean, request.perimeter_mean, request.area_mean,
@@ -131,4 +111,4 @@ def predict_cancer(request: CancerPredictionRequest):
 # If running this script directly, start the FastAPI server
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8001)
+    uvicorn.run(app, host="127.0.0.1", port=8084)
