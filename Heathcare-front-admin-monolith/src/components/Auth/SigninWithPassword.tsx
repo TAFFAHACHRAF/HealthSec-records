@@ -45,8 +45,22 @@ export default function SigninWithPassword() {
         console.log (response)
         cookies.set("accessToken", result.access_token, { path: "/" });
         cookies.set("userId", result.person_id, { path: "/" });
-        alert("OK");
-        window.location.href = "/dashboard/doctor";
+        cookies.set("role", result.role, { path: "/" });
+        if(result.role === "HEALTHCARE_INSTITUTION"){
+          window.location.href = "/dashboard/hi";
+          alert ('HEALTHCARE_INSTITUTION')
+        } 
+        else if(result.role === "DOCTOR"){
+          window.location.href = "/dashboard/doctor";
+          alert ("DOCTOR")
+        }
+        else if(result.role === "ADMINISTRATOR"){
+          window.location.href = "/dashboard/administrator";
+          alert ("ADMINISTRATOR")
+        }
+        else {
+          alert ("Invalid user role")
+        } 
       } else {
         alert("Invalid credentials");
       }
