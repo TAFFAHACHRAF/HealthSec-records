@@ -17,10 +17,6 @@ public class UpdatePatientReqDTO {
     @NotBlank(message = "Address is required")
     private String address;
 
-    @NotNull(message = "Gender is required")
-    private GENDER gender;
-
-    @NotNull(message = "Date of birth is required")
-    private Date dateOfBirth;
-
+    @NotNull(message = "Email is required")
+    private String email;
 }

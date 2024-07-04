@@ -18,9 +18,9 @@ import java.util.List;
 @NoArgsConstructor
 public class CreateMedicalRecordDTO {
 
-    @NotNull
+    /*@NotNull
     @PastOrPresent(message = "Date must be in the past or present")
-    private Date date;
+    private Date date;*/
 
     @NotBlank(message = "Notes must not be blank")
     private String notes;
@@ -36,5 +36,5 @@ public class CreateMedicalRecordDTO {
     private String patientId;
 
     @NotNull(message = "Doctor ID must not be null")
-    private Integer doctorId;
+    private Integer doctorID;
 }

@@ -2,6 +2,8 @@ package healthcare.org.controllers;
 
 import healthcare.org.dtos.record.CreateMedicalRecordDTO;
 import healthcare.org.dtos.record.ResponseMedicalRecordDTO;
+import healthcare.org.exceptions.DoctorNotFoundException;
+import healthcare.org.exceptions.PatientNotFoundException;
 import healthcare.org.services.MedicalRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,9 +75,10 @@ public class MedicalRecordController {
             return new ResponseEntity<>(savedMedicalRecordDTO, HttpStatus.CREATED);
         } catch (AuthenticationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: " + e.getMessage());
-        } catch (AccessDeniedException e) {
+        } catch (AccessDeniedException | PatientNotFoundException | DoctorNotFoundException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Forbidden: " + e.getMessage());
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
         }
     }
@@ -92,5 +95,15 @@ public class MedicalRecordController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
         }
+    }
+
+    @ExceptionHandler(PatientNotFoundException.class)
+    public ResponseEntity<String> handlePatientNotFoundException(PatientNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(DoctorNotFoundException.class)
+    public ResponseEntity<String> handleDoctorNotFoundException(DoctorNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 }

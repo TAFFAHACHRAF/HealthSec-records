@@ -1,0 +1,46 @@
+{
+  "name": "free-nextadmin-nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "apexcharts": "^3.45.2",
+    "axios": "^1.7.2",
+    "flatpickr": "^4.6.13",
+    "js-cookie": "^3.0.5",
+    "jsvectormap": "^1.5.3",
+    "next": "^14.1.4",
+    "react": "^18",
+    "react-apexcharts": "^1.4.1",
+    "react-dom": "^18",
+    "react-modal": "^3.16.1",
+    "react-quill": "^2.0.0",
+    "react-select": "^5.8.0",
+    "react-table": "^7.8.0",
+    "universal-cookie": "^7.1.4"
+  },
+  "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@types/react-modal": "^3.16.3",
+    "@types/react-table": "^7.7.19",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.1.0",
+    "postcss": "^8",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.11",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}

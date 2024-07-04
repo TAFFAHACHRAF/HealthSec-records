@@ -7,6 +7,7 @@ import healthcare.org.entities.MedicalRecord;
 import healthcare.org.entities.Prescription;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -29,7 +30,7 @@ public class MedicalRecordMapperImpl implements MedicalRecordMapper {
     @Override
     public MedicalRecord toMedicalRecordEntity(CreateMedicalRecordDTO medicalRecordDTO) {
         MedicalRecord medicalRecord = new MedicalRecord();
-        medicalRecord.setDate(medicalRecordDTO.getDate());
+        medicalRecord.setDate(new Date());
         medicalRecord.setNotes(medicalRecordDTO.getNotes());
         medicalRecord.setDiagnosis(medicalRecordDTO.getDiagnosis());
         medicalRecord.setTreatment(medicalRecordDTO.getTreatment());
