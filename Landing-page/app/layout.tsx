@@ -6,8 +6,8 @@ import { ModalProvider } from "@/providers/modal-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Whitepace",
-  description: "Whitepace Project Management Software",
+  title: "Healthsec records",
+  description: "Healthsec records",
   icons: {
     icon: [
       {

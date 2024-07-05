@@ -11,8 +11,8 @@ export const CallToActionSection = () => {
     <Container className="flex flex-col gap-y-60 bg-secondary text-white relative">
       <div className="w-full pt-[100px] md:pt-[140px] pb-[140px] flex flex-col items-center justify-center gap-y-[60px]">
         <Section4Text />
-        <Button onClick={() => attributionModal.onOpen()} size="with-icon">
-          Try Whitepace
+        <Button >
+          Try for free
           <ArrowRight className="w-4 h-4" />
         </Button>
       </div>

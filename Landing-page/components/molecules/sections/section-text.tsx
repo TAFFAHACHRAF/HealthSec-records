@@ -151,11 +151,10 @@ export const Section6Text = () => {
   return (
     <div className="flex flex-col gap-y-[24px] z-10 w-full xl:max-w-[1064px]">
       <h1 className="text-h4 md:text-h3 lg:text-h2 xl:text-h1 font-bold text-center lg:text-left">
-        Work with Your Favorite Apps Using Whitepace
+        Simplify your medical data management using Healthsec Records
       </h1>
       <p className="text-p2 text-center lg:text-left">
-        Whitepace teams up with your favorite software. Integrate with over
-        1000+ apps to have all the tools you need for your project success.
+        Healthsec Records provides secure and efficient solutions for managing medical data, ensuring compliance and ease of access for healthcare providers.
       </p>
     </div>
   );
@@ -165,7 +164,7 @@ export const CtaText = () => {
   return (
     <div className="flex flex-col gap-y-[24px] z-10 w-full md:max-w-[608px]">
       <h1 className="text-h4 md:text-h3 lg:text-h2 xl:text-h1 font-bold text-center">
-        Try Whitepace today
+        Try Healthsec records today
       </h1>
       <p className="text-p2 md:text-p1 text-center">
         Get started for free.
@@ -179,14 +178,13 @@ export const CtaText = () => {
 export const FooterText = () => {
   return (
     <div className="flex flex-col items-center justify-center md:items-start gap-6 lg:gap-4">
-      <Logo className="w-[191px] h-[34px] md:w-[352px] md:h-[62px] lg:w-[191px] lg:h-[34px]" />
       <p className="text-p2 text-center md:text-left">
-        whitepace was created for the new ways we live and work. We make
-        beautifully designed around the world.
+        Healthsec Records was created for the new ways we live and work.
       </p>
     </div>
   );
 };
+
 
 export const FooterCtaText = () => {
   return (

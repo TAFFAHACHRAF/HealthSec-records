@@ -24,13 +24,13 @@ export const navProducts: INavProductType[] = [
     icon: PanelsTopLeft,
   },
   {
-    title: "Whitepace Assist",
+    title: "Healthsec records Assist",
     desc: "Eliminate tedious tasks with auto-generated mindmaps, diagrams, code, and summaries.",
     icon: Sparkles,
   },
   {
     title: "Content and Visualization",
-    desc: "Combine documents, designs, data, and more in Whitepace's integrated workspace.",
+    desc: "Combine documents, designs, data, and more in Healthsec records's integrated workspace.",
     icon: PieChart,
   },
 ];

@@ -57,7 +57,7 @@ export const MobileNav = () => {
         <div className="flex flex-col gap-y-2 w-full mt-auto">
           <Button variant="secondary">Login</Button>
           <Button size="with-icon">
-            Try Whitepace free <ArrowRight />
+            Try for free <ArrowRight />
           </Button>
         </div>
       </SheetContent>

@@ -14,13 +14,17 @@ export const ProjectManagementSection = () => {
           <div className="flex items-center lg:items-start flex-col gap-y-[60px]">
             <Section1Text />
             <div className="z-10">
+            <a
+              href="http://localhost:7075/"
+            >
               <Button
-                onClick={() => attributionModal.onOpen()}
-                size="with-icon"
-              >
-                Get Started
+                  // onClick={() => attributionModal.onOpen()}
+                  size="with-icon"
+                >
+                Get started
                 <ArrowRight className="w-4 h-4" />
               </Button>
+            </a>
             </div>
           </div>
           <HeroImage imgSrc="/assets/World health day-bro.svg" />

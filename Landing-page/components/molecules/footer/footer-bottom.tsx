@@ -20,7 +20,7 @@ export const FooterBottom = () => {
         <Link href="/" className="text-p3 hover:underline transition">
           Status
         </Link>
-        <p className="text-p3">©2021 Whitepace LLC.</p>
+        <p className="text-p3">©2024.</p>
       </div>
       <div className="flex items-center justify-center md:justify-start lg:justify-end gap-x-8 mt-5 lg:mt-0 pt-5 border-t border-[#2E4E73] lg:border-none lg:pt-0 w-full">
         <Image

@@ -57,7 +57,6 @@ export const PricingCard = ({
         ))}
       </div>
       <Button
-        onClick={() => attributionModal.onOpen()}
         variant={isHighlight ? "default" : "outline"}
       >
         Get Started

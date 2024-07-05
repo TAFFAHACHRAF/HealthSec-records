@@ -3,15 +3,15 @@ import Image from "next/image";
 
 interface ILogo {
   className?: string;
-  color?: "regular" | "blue";
+  color?: "white" | "blue";
 }
 
-export const Logo = ({ className, color = "regular" }: ILogo) => {
+export const Logo = ({ className, color = "white" }: ILogo) => {
   return (
     <div className={cn("relative w-[950px] h-[200px]", className)}>
       <Image
-        src={color === "regular" ? "/assets/logo4.svg" : "/assets/logo-blue.svg"}
-        alt="Whitepace Logo"
+        src={color === "white" ? "/assets/logo4.svg" : "/assets/logo-blue.svg"}
+        alt="Healthsec records Logo"
         fill
         className="object-fill"
       />

@@ -57,13 +57,17 @@ export const Footer = () => {
           <div className="flex flex-col items-center justify-center md:items-start md:justify-start gap-y-4 max-w-[201px]">
             <FooterCtaText />
             <div className="z-10">
-              <Button
-                onClick={() => attributionModal.onOpen()}
-                size="with-icon"
+              <a
+                href="http://localhost:7075/"
               >
-                Start Today
+              <Button
+                  // onClick={() => attributionModal.onOpen()}
+                  size="with-icon"
+                >
+                Get started
                 <ArrowRight className="w-4 h-4" />
               </Button>
+             </a>
             </div>
           </div>
         </div>

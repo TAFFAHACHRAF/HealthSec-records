@@ -14,7 +14,7 @@ export const HeroSection = () => {
             <HeroText />
             <div className="z-10">
               <Button
-                onClick={() => attributionModal.onOpen()}
+                // onClick={() => attributionModal.onOpen()}
                 size="with-icon"
               >
                 Try for free

@@ -15,10 +15,17 @@ export const CtaSection = () => {
       <div className="flex flex-col items-center justify-center gap-10 pb-8 pt-[140px]">
         <CtaText />
         <div className="z-10">
-          <Button onClick={() => attributionModal.onOpen()} size="with-icon">
-            Get Started
-            <ArrowRight className="w-4 h-4" />
-          </Button>
+        <a
+              href="http://localhost:7075/"
+            >
+              <Button
+                  // onClick={() => attributionModal.onOpen()}
+                  size="with-icon"
+                >
+                Get started
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </a>
         </div>
         <p className="text-p2 md:text-p1 text-center">
           On a big team?{" "}
