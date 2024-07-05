@@ -54,7 +54,7 @@ const AddRecordForm = () => {
 
   return (
     <>
-      <Breadcrumb pageName="Add Record" />
+      <Breadcrumb pageName="Add Record" url=""/>
 
       <form onSubmit={handleSubmit} className="">
         <div className="flex flex-col gap-9">

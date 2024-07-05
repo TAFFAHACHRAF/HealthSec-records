@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/records")
 @RequiredArgsConstructor
 @Validated
-@CrossOrigin(origins = "http://localhost:3000/", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:7075/", maxAge = 3600)
 public class MedicalRecordController {
 
     private final MedicalRecordService medicalRecordService;

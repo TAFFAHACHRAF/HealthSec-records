@@ -80,6 +80,7 @@ const PatientTablePage = () => {
 
   // Filtering patients based on search term
   const filteredPatients = patientData.filter(patient =>
+    patient.personID.toLowerCase().includes(searchTerm.toLowerCase()) ||
     patient.firstname.toLowerCase().includes(searchTerm.toLowerCase()) ||
     patient.lastname.toLowerCase().includes(searchTerm.toLowerCase()) ||
     patient.phone.includes(searchTerm) ||
@@ -120,10 +121,13 @@ const PatientTablePage = () => {
           <table className="w-full table-auto">
             <thead>
               <tr className="bg-[#F7F9FC] text-left dark:bg-dark-2">
-                <th className="min-w-[220px] px-4 py-4 font-medium text-dark dark:text-white xl:pl-7.5">
+                <th className="min-w-[250px] px-4 py-4 font-medium text-dark dark:text-white">
+                Patient ID
+                </th>
+                <th className="min-w-[120px] px-4 py-4 font-medium text-dark dark:text-white">
                   Name
                 </th>
-                <th className="min-w-[150px] px-4 py-4 font-medium text-dark dark:text-white">
+                <th className="min-w-[120px] px-4 py-4 font-medium text-dark dark:text-white">
                   Phone
                 </th>
                 <th className="min-w-[120px] px-4 py-4 font-medium text-dark dark:text-white">
@@ -146,6 +150,9 @@ const PatientTablePage = () => {
             <tbody>
               {currentPatients.map((patient, index) => (
                 <tr key={index} className={`${index === currentPatients.length - 1 ? "border-b-0" : "border-b"} border-[#eee] px-4 py-4 dark:border-dark-3`}>
+                  <td className="text-dark dark:text-white">
+                    {patient.personID}
+                  </td>
                   <td className="text-dark dark:text-white">
                     {patient.firstname} {patient.lastname}
                   </td>

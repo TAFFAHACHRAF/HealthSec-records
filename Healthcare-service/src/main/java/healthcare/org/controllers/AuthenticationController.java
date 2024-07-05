@@ -24,7 +24,7 @@ import java.security.Principal;
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 @Validated
-@CrossOrigin(origins = "http://localhost:3000/", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:7075/", maxAge = 3600)
 public class AuthenticationController {
 
   private final AuthenticationService authenticationService;

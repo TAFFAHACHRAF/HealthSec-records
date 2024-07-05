@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/v1/doctors")
 @RequiredArgsConstructor
 @Validated
-@CrossOrigin(origins = "http://localhost:3000/", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:7075/", maxAge = 3600)
 public class DoctorController {
   private final AuthenticationService authenticationService;
   private final DoctorMapper doctorMapper;

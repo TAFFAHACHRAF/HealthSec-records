@@ -79,6 +79,7 @@ const RecordTablePage = () => {
 
   // Filtering records based on search term
   const filteredRecords = recordData.filter(record =>
+    record.patientId.toLowerCase().includes(searchTerm.toLowerCase()) ||
     record.notes.toLowerCase().includes(searchTerm.toLowerCase()) ||
     record.diagnosis.toLowerCase().includes(searchTerm.toLowerCase()) ||
     record.treatment.toLowerCase().includes(searchTerm.toLowerCase())
@@ -114,6 +115,9 @@ const RecordTablePage = () => {
             <thead>
               <tr className="bg-[#F7F9FC] text-left dark:bg-dark-2">
                 <th className="min-w-[220px] px-4 py-4 font-medium text-dark dark:text-white xl:pl-7.5">
+                  Patient Id
+                </th>
+                <th className="min-w-[220px] px-4 py-4 font-medium text-dark dark:text-white xl:pl-7.5">
                   Notes
                 </th>
                 <th className="min-w-[150px] px-4 py-4 font-medium text-dark dark:text-white">
@@ -130,6 +134,9 @@ const RecordTablePage = () => {
             <tbody>
               {currentRecords.map((record, index) => (
                 <tr key={index} className={`${index === currentRecords.length - 1 ? "border-b-0" : "border-b"} border-[#eee] px-4 py-4 dark:border-dark-3`}>
+                  <td className="text-dark dark:text-white">
+                    {record.patientId}
+                  </td>
                   <td className="text-dark dark:text-white">
                     {record.notes}
                   </td>
