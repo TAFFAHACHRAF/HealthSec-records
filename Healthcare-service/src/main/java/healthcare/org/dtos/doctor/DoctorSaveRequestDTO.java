@@ -46,6 +46,6 @@ public class DoctorSaveRequestDTO {
     @NotBlank(message = "Doctor specialization is required")
     private String doctorSpecialization;
 
-    @NotNull(message = "Institution type is required")
-    private INSTYPE institutionInstype;
+    @NotNull(message = "HI id is required")
+    private Integer hiId;
 }

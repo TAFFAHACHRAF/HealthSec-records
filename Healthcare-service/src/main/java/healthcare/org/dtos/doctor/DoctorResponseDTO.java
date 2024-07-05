@@ -20,5 +20,5 @@ public class DoctorResponseDTO {
     private String cin;
     private String doctorSpecialization;
     private Role role;
-    private INSTYPE institutionInstype;
+    private Integer hiId;
 }

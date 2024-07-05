@@ -4,6 +4,7 @@ import healthcare.org.dtos.doctor.DoctorResponseDTO;
 import healthcare.org.dtos.doctor.DoctorSaveRequestDTO;
 import healthcare.org.dtos.doctor.DoctorUpdateRequestDTO;
 import healthcare.org.entities.User;
+import healthcare.org.exceptions.HiNotFoundException;
 import healthcare.org.services.AuthenticationService;
 import healthcare.org.mappers.DoctorMapper;
 import org.springframework.data.domain.Page;
@@ -56,8 +57,26 @@ public class DoctorController {
       return ResponseEntity.status(HttpStatus.CREATED).body(response);
     } catch (AuthenticationException e) {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: " + e.getMessage());
+    } catch (AccessDeniedException | HiNotFoundException e) {
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Forbidden: " + e.getMessage());
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
+    }
+  }
+
+  @GetMapping("/getby/{id}")
+  @PreAuthorize("hasAuthority('hi_read_their_doctors')")
+  public ResponseEntity<?> getDoctorById(@PathVariable("id") Integer id) {
+    try {
+      User user = authenticationService.findById(id);
+      DoctorResponseDTO responseDTO = doctorMapper.toDoctorResponseDTO(user);
+      return ResponseEntity.ok(responseDTO);
+    } catch (AuthenticationException e) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: " + e.getMessage());
     } catch (AccessDeniedException e) {
       return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Forbidden: " + e.getMessage());
+    } catch (HiNotFoundException e) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Doctor not found: " + e.getMessage());
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
     }

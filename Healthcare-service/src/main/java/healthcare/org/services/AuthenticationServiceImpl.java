@@ -7,8 +7,11 @@ import healthcare.org.dtos.healthcare_institution.AuthenticationRequestDTO;
 import healthcare.org.dtos.healthcare_institution.AuthenticationResponseDTO;
 import healthcare.org.dtos.healthcare_institution.ChangePasswordRequestDTO;
 import healthcare.org.dtos.healthcare_institution.RegisterReqDTO;
+import healthcare.org.entities.Patient;
 import healthcare.org.entities.Role;
 import healthcare.org.entities.User;
+import healthcare.org.exceptions.HiNotFoundException;
+import healthcare.org.exceptions.PatientNotFoundException;
 import healthcare.org.mappers.DoctorMapper;
 import healthcare.org.repositories.UserRepository;
 import healthcare.org.security.JwtService;
@@ -52,11 +55,19 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
   @Override
   public DoctorResponseDTO saveDoctor(DoctorSaveRequestDTO request) {
-    User user = doctorMapper.toEntity(request);
-    user.setPassword(passwordEncoder.encode(user.getPassword()));
-    user.setRole(Role.DOCTOR);
-    User savedUser = userRepository.save(user);
-    return doctorMapper.toDoctorResponseDTO(savedUser);
+    try {
+      User hi = userRepository.findById(request.getHiId())
+              .orElseThrow(() -> new HiNotFoundException("HealthcareInstitution with id " + request.getHiId() + " not found"));
+
+      User user = doctorMapper.toEntity(request);
+      user.setPassword(passwordEncoder.encode(user.getPassword()));
+      user.setRole(Role.DOCTOR);
+      user.setHealthcareInstitution(hi);
+      User savedUser = userRepository.save(user);
+      return doctorMapper.toDoctorResponseDTO(savedUser);
+    } catch (HiNotFoundException e) {
+      throw new HiNotFoundException(e.getMessage());
+    }
   }
 
   @Override

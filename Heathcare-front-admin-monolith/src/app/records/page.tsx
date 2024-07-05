@@ -93,7 +93,7 @@ const RecordTablePage = () => {
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Medical Records" />
+      <Breadcrumb pageName="Medical Records" url=""/>
 
       <div className="flex flex-col gap-10">
         <div className="rounded-[10px] border border-stroke bg-white p-4 shadow-1 dark:border-dark-3 dark:bg-gray-dark dark:shadow-card sm:p-7.5">

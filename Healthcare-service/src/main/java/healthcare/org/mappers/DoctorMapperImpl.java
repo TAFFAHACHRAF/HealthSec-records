@@ -20,6 +20,8 @@ public class DoctorMapperImpl implements DoctorMapper {
         }
         DoctorResponseDTO dto = new DoctorResponseDTO();
         BeanUtils.copyProperties(user, dto);
+        if(user.getHealthcareInstitution() != null)
+            dto.setHiId(user.getHealthcareInstitution().getUserId());
         return dto;
     }
 

@@ -13,7 +13,7 @@ const Settings = () => {
   return (
     <DefaultLayout>
       <div className="mx-auto w-full max-w-[1080px]">
-        <Breadcrumb pageName="Settings" />
+        <Breadcrumb pageName="Settings" url=""/>
 
         <SettingBoxes />
       </div>

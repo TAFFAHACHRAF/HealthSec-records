@@ -50,23 +50,20 @@ export default function SigninWithPassword() {
           window.location.href = "/dashboard/hi";
           alert ('HEALTHCARE_INSTITUTION')
         } 
-        else if(result.role === "DOCTOR"){
+        if(result.role === "DOCTOR"){
           window.location.href = "/dashboard/doctor";
           alert ("DOCTOR")
         }
-        else if(result.role === "ADMINISTRATOR"){
+        if(result.role === "ADMINISTRATOR"){
           window.location.href = "/dashboard/administrator";
           alert ("ADMINISTRATOR")
         }
-        else {
-          alert ("Invalid user role")
-        } 
       } else {
-        alert("Invalid credentials");
+        // alert("Invalid credentials");
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("An error occurred");
+      // alert("An error occurred");
     }
   };
 

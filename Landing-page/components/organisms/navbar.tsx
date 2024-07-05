@@ -16,24 +16,23 @@ export const Navbar = () => {
         <div className="flex items-center justify-center gap-x-[60px] z-50">
           <NavMenu className="hidden xl:flex" />
           <div className="flex gap-x-6">
-            <Button
-              onClick={() => attributionModal.onOpen()}
-              variant="secondary"
-              className="hidden lg:flex"
-            >
-              Login
-            </Button>
-            <Button
-              onClick={() => attributionModal.onOpen()}
-              size="with-icon"
-              className="hidden lg:flex"
-            >
-              Try Whitepace free <ArrowRight />
-            </Button>
-            <div className="flex xl:hidden">
-              <MobileNav />
-            </div>
-          </div>
+  <a
+    href="http://localhost:8089/"
+    className="button-secondary hidden lg:flex"
+  >
+    Login
+  </a>
+  <a
+    href="http://localhost:8089/"
+    className="button-with-icon hidden lg:flex"
+  >
+    Try Whitepace free <ArrowRight />
+  </a>
+  <div className="flex xl:hidden">
+    <MobileNav />
+  </div>
+</div>
+
         </div>
       </nav>
     </Container>

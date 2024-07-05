@@ -3,6 +3,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from controllers.controller import router as app_router
+import uvicorn
 
 app = FastAPI()
 
@@ -22,5 +23,4 @@ app.include_router(app_router)
 
 # Run the FastAPI application with uvicorn
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("main:app", host="127.0.0.1", port=8083, reload=True)
+    uvicorn.run("app:app", host="localhost", port=8083, reload=True)

@@ -4,6 +4,8 @@ import healthcare.org.dtos.healthcare_institution.AuthenticationRequestDTO;
 import healthcare.org.dtos.healthcare_institution.AuthenticationResponseDTO;
 import healthcare.org.dtos.healthcare_institution.ChangePasswordRequestDTO;
 import healthcare.org.dtos.healthcare_institution.RegisterReqDTO;
+import healthcare.org.exceptions.HiNotFoundException;
+import healthcare.org.exceptions.PatientNotFoundException;
 import healthcare.org.services.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -90,6 +92,11 @@ public class AuthenticationController {
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
     }
+  }
+
+  @ExceptionHandler(HiNotFoundException.class)
+  public ResponseEntity<String> handleHiNotFoundException(HiNotFoundException ex) {
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
   }
 
 }

@@ -16,7 +16,7 @@ const DoctorDashboard = () => {
     <>  
     <DefaultLayout>
       <div className="mx-auto w-full max-w-[970px]">
-        <Breadcrumb pageName="Helathcare institution dashboard" />
+        <Breadcrumb pageName="Helathcare institution dashboard" url=""/>
 
         <HIDashboardComponent />
         </div>
