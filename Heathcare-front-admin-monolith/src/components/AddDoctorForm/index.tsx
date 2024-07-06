@@ -53,9 +53,11 @@ const AddDoctorForm = () => {
       });
 
       if (response.ok) {
+        alert('Doctor added successfully')
         console.log("Doctor added successfully");
-        window.location.href = "/doctors"; // Redirect to doctors page
+        window.location.href = "/doctors"; 
       } else {
+        alert('Failed to add doctor data')
         console.error("Failed to add doctor data");
       }
     } catch (error) {

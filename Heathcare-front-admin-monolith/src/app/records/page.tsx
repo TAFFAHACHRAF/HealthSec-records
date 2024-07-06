@@ -19,7 +19,7 @@ const RecordTablePage = () => {
     const fetchRecords = async () => {
       const token = cookies.get('accessToken'); // Make sure you have a cookie named 'accessToken'
       try {
-        const response = await fetch('http://localhost:8082/api/v1/records/all', {
+        const response = await fetch(`http://localhost:8082/api/v1/records/all?page=${currentPage-1}&size=${recordsPerPage}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -41,12 +41,12 @@ const RecordTablePage = () => {
     fetchRecords();
   }, []);
 
-  const handleUpdate = (recordId: string) => {
-    window.location.href = `/records/update?id=${recordId}`;
-  };
+  // const handleUpdate = (recordId: string) => {
+  //   window.location.href = `/records/update?id=${recordId}`;
+  // };
 
   const handleConsult = (recordId: string) => {
-    window.location.href = `/records/update?id=${recordId}`;
+    window.location.href = `/records/consult?id=${recordId}`;
   };
 
   const handleAddRecord = () => {
@@ -146,10 +146,7 @@ const RecordTablePage = () => {
                   <td className="text-dark dark:text-white">
                     {record.treatment}
                   </td>
-                  <td className="flex space-x-4 text-dark dark:text-white">
-                    <button onClick={() => handleUpdate(record.recordID)} className="hover:text-blue-500">
-                      <FontAwesomeIcon icon={faEdit} />
-                    </button>
+                  <td className="flex space-x-4 text-dark dark:text-white">             
                     <button onClick={() => handleDelete(record.recordID)} className="hover:text-red-500">
                       <FontAwesomeIcon icon={faTrash} />
                     </button>

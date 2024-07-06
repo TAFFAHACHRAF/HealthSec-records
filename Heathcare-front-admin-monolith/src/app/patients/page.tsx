@@ -19,7 +19,7 @@ const PatientTablePage = () => {
     const fetchPatients = async () => {
       const token = cookies.get('accessToken'); // Make sure you have a cookie named 'accessToken'
       try {
-        const response = await fetch('http://localhost:8082/api/v1/patients/all', {
+        const response = await fetch(`http://localhost:8082/api/v1/patients/all?page=${currentPage-1}&size=${patientsPerPage}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,

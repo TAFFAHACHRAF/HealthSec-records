@@ -56,7 +56,7 @@ const AddPatientForm = () => {
 
   return (
     <>
-      <Breadcrumb pageName="Add Patient" />
+      <Breadcrumb pageName="Add Patient" url="" />
 
       <form onSubmit={handleSubmit} className="">
         <div className="flex flex-col gap-9">

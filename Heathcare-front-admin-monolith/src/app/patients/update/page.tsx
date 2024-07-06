@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const UpdatePage = () => {
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Update patient" />
+      <Breadcrumb pageName="Update patient" url=""/>
       <UpdatePatientForm />
     </DefaultLayout>
   );

@@ -50,7 +50,7 @@ public class MedicalRecordController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getby/{id}")
     public ResponseEntity<?> getMedicalRecordById(@PathVariable("id") String id) {
         try {
             ResponseMedicalRecordDTO medicalRecordDTO = medicalRecordService.getMedicalRecordById(id);

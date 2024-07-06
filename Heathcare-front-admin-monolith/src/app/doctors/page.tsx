@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
@@ -12,14 +12,15 @@ const DoctorTablePage = () => {
   const [doctorData, setDoctorData] = useState<Doctor[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
   const [doctorsPerPage] = useState<number>(10); // Number of doctors per page
   const cookies = new Cookies();
 
   useEffect(() => {
     const fetchDoctors = async () => {
-      const token = cookies.get('accessToken'); // Make sure you have a cookie named 'accessToken'
+      const token = cookies.get('accessToken');
       try {
-        const response = await fetch('http://localhost:8082/api/v1/doctors/all', {
+        const response = await fetch(`http://localhost:8082/api/v1/doctors/all?page=${currentPage-1}&size=${doctorsPerPage}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -30,6 +31,7 @@ const DoctorTablePage = () => {
         if (response.ok) {
           const data = await response.json();
           setDoctorData(data.content);
+          setTotalPages(data.totalPages);
         } else {
           console.error('Failed to fetch doctor data');
         }
@@ -39,7 +41,7 @@ const DoctorTablePage = () => {
     };
 
     fetchDoctors();
-  }, []);
+  }, [currentPage, doctorsPerPage]);
 
   const handleUpdate = (doctorId: number) => {
     window.location.href = `/doctors/update?id=${doctorId}`;
@@ -68,7 +70,7 @@ const DoctorTablePage = () => {
   };
 
   const handleConsult = (doctorId: number) => {
-    window.location.href = `/doctors/consult?id=${doctorId}`;
+    window.location.href = `/doctors/update?id=${doctorId}`;
   };
 
   const handleAddDoctor = () => {
@@ -86,16 +88,11 @@ const DoctorTablePage = () => {
     doctor.cin.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Pagination logic
-  const indexOfLastDoctor = currentPage * doctorsPerPage;
-  const indexOfFirstDoctor = indexOfLastDoctor - doctorsPerPage;
-  const currentDoctors = filteredDoctors.slice(indexOfFirstDoctor, indexOfLastDoctor);
-
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Doctors" url=""/>
+      <Breadcrumb pageName="Doctors" url="" />
 
       <div className="flex flex-col gap-10">
         <div className="rounded-[10px] border border-stroke bg-white p-4 shadow-1 dark:border-dark-3 dark:bg-gray-dark dark:shadow-card sm:p-7.5">
@@ -139,8 +136,8 @@ const DoctorTablePage = () => {
               </tr>
             </thead>
             <tbody>
-              {currentDoctors.map((doctor, index) => (
-                <tr key={index} className={index === currentDoctors.length - 1 ? "border-b-0 border-[#eee] dark:border-dark-3" : "border-b border-[#eee] dark:border-dark-3 px-4 py-4"}>
+              {filteredDoctors.map((doctor, index) => (
+                <tr key={index} className={index === filteredDoctors.length - 1 ? "border-b-0 border-[#eee] dark:border-dark-3" : "border-b border-[#eee] dark:border-dark-3 px-4 py-4"}>
                   <td className="text-dark dark:text-white">
                     {doctor.firstname} {doctor.lastname}
                   </td>
@@ -179,7 +176,7 @@ const DoctorTablePage = () => {
           <div className="flex justify-end mt-4">
             <nav className="block">
               <ul className="flex pl-0 list-none rounded my-2">
-                {Array.from({ length: Math.ceil(filteredDoctors.length / doctorsPerPage) }, (_, i) => (
+                {Array.from({ length: totalPages }, (_, i) => (
                   <li key={i} className="mx-1">
                     <button
                       onClick={() => paginate(i + 1)}

@@ -42,7 +42,7 @@ const FormElementsPage = () => {
   const handleSubmit = async () => {
     console.log(predictionData);
     try {
-      const response = await fetch('http://127.0.0.1:8001/predict', {
+      const response = await fetch('http://127.0.0.1:8085/predict', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -128,6 +128,7 @@ const FormElementsPage = () => {
                     {field.split("_").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
                   </label>
                   <input
+                    required
                     type="number"
                     name={field}
                     value={(predictionData as any)[field]}
