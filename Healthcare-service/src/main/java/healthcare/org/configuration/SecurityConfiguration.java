@@ -38,7 +38,9 @@ public class SecurityConfiguration {
             "/configuration/security",
             "/swagger-ui/**",
             "/webjars/**",
-            "/swagger-ui.html"};
+            "/swagger-ui.html"
+    };
+
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final LogoutHandler logoutHandler;
@@ -50,11 +52,6 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
-                                /*.requestMatchers("/api/v1/patients/**").hasAnyRole(HEALTHCARE_INSTITUTION.name(), DOCTOR.name(), ADMINISTRATOR.name())
-                                .requestMatchers(GET, "/api/v1/patients/**").hasAnyAuthority(HEALTHCARE_INSTITUTION.name(), DOCTOR.name(), ADMINISTRATOR.name())
-                                .requestMatchers(POST, "/api/v1/patients/**").hasAnyAuthority(HEALTHCARE_INSTITUTION.name(), DOCTOR.name(), ADMINISTRATOR.name())
-                                .requestMatchers(PUT, "/api/v1/patients/**").hasAnyAuthority(HEALTHCARE_INSTITUTION.name(), DOCTOR.name(), ADMINISTRATOR.name())
-                                .requestMatchers(DELETE, "/api/v1/patients/**").hasAnyAuthority(HEALTHCARE_INSTITUTION.name(), DOCTOR.name(), ADMINISTRATOR.name())*/
                                 .anyRequest()
                                 .authenticated()
                 )
@@ -65,8 +62,7 @@ public class SecurityConfiguration {
                         logout.logoutUrl("/api/v1/auth/logout")
                                 .addLogoutHandler(logoutHandler)
                                 .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
-                )
-        ;
+                );
 
         return http.build();
     }
